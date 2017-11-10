@@ -39,11 +39,15 @@ classdef Mesh < SOFE
               set(h,'facecolor','g','edgecolor','k'); view(3);
           end
         case 3
-          fc = obj.topology.getEntity(2);
-          isB = obj.topology.isBoundary();
-          if obj.topology.isSimplex, I = [1 2 3]; else, I = [1 2 4 3]; end
-          h = trimesh(fc(isB,I), obj.nodes(:,1), obj.nodes(:,2), obj.nodes(:,3));
-          set(h,'facecolor',[0.5 0.7 0.2],'edgecolor','k'); view(3);
+          if isempty(varargin)
+            fc = obj.topology.getEntity(2);
+            isB = obj.topology.isBoundary();
+            if obj.topology.isSimplex, I = [1 2 3]; else, I = [1 2 4 3]; end
+            h = trimesh(fc(isB,I), obj.nodes(:,1), obj.nodes(:,2), obj.nodes(:,3));
+            set(h,'facecolor',[0.5 0.7 0.2],'edgecolor','k'); view(3);
+          else
+            
+          end         
       end
       axis equal; axis tight;
     end

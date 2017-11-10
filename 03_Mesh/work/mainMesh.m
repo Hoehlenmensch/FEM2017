@@ -1,10 +1,14 @@
 clear classes
 % PARAMETERS
-isSimplex = 1;
-dimP = 1;
+isSimplex = 0;
+dimP = 2;
 dimW = 3;
 N = 25;
 % MESH
+
+
+
+
 switch dimP
   case 1
     [nodes elem] = Mesh.getTensorProductMesh({linspace(0,1,N)});
@@ -17,12 +21,12 @@ switch dimP
         f = @(x) [x.*cos(2*pi*x) x.*sin(2*pi*x) x];
     end
   case 2
-    [nodes elem] = Mesh.getTensorProductMesh({linspace(0,1,N); linspace(0,1,N)}, isSimplex);
+    [nodes elem] = Mesh.getTensorProductMesh({linspace(1,2,N); linspace(0,2*pi,N*10)}, isSimplex);
     switch dimW
       case 2
-        f = @(x)x;
+        f = @(x) [x(:,1).*cos(x(:,2)) x(:,1).*sin(x(:,2))];
       case 3
-        f = @(x) [x(:,1) x(:,2) 0.2*sin(2*pi*prod(x,2))];;
+        f = @(x) [x(:,1).*cos(x(:,2)) x(:,1).*sin(x(:,2)) 5./(x(:,1)).^8];
     end
   case 3
     [nodes elem] = Mesh.getTensorProductMesh({linspace(0,1,N); linspace(0,1,N); linspace(0,1,N)}, isSimplex);
